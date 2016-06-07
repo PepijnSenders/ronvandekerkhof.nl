@@ -1,0 +1,13 @@
+doctype html
+html&attributes(header.htmlAttributes.toComponent())
+    head
+        title= title
+        each component in header.meta.toComponent()
+            meta&attributes(component.props)
+        each component in header.link.toComponent()
+            link&attributes(component.props)
+    body
+        div#app!= containedHTML
+        script(type="text/javascript").
+            window.__INITIAL_STATE__ = !{JSON.stringify(initialState)};
+        script(type="text/javascript", src="/dist/main.js")
