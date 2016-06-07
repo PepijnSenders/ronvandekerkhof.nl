@@ -1,11 +1,14 @@
 import pug from 'pug';
 import path from 'path';
 import { Map } from 'immutable';
+import helmetConfig from '../../common/config/helmet';
+import fs from 'fs';
 
 export function createContext(store, routes) {
     return new Map({
         store,
         routes,
+        helmetConfig,
         renderIndex: (header, initialState, containedHTML) =>
             getTemplate(
                 path.resolve(__dirname, '../../..', 'resources/views/index.pug')
