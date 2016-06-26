@@ -1,6 +1,8 @@
 export default {
     title: 'Ron van de Kerkhof',
-    link: [],
+    link: [
+        { rel: 'stylesheet', href: '/fonts/nitti-light/stylesheet.css' },
+    ],
     meta: [
         { charset: 'utf-8' },
         { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },

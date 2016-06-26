@@ -15,19 +15,24 @@ import Meta from '../../common/components/Meta';
 import helmetConfig from '../../common/config/helmet';
 import fetchComponentDataBeforeRender from
     '../../common/middlewares/fetchComponentDataBeforeRender';
+import { StyleRoot } from 'radium';
 
 export default function render(req, res) {
     const history = createMemoryHistory();
     const store = configureStore(fromJS({}), history);
 
-    const context = createContext(store, createRoutes());
+    const context = createContext(store, createRoutes(), createRadiumConfig(req));
 
     store.dispatch(renderRequest(req.url));
 
     renderer(context, req.url)
-        .then((response) => {
-            res.status(response.status)
-                .send(response.body);
+        .then(({ status, body }) => {
+            if (status >= 200 && status < 300) {
+                res.status(status)
+                    .send(body);
+            } else {
+                res.redirect(status, body);
+            }
         })
         .catch((err) => {
             const status = 500;
@@ -79,7 +84,8 @@ function renderHTML(renderProps, context) {
         const header = renderHeader(context.get('helmetConfig'));
         const renderFunction = context.get('renderIndex');
         const initialState = store.getState();
-        const containedHTML = renderComponent(store, renderProps);
+        const radiumConfig = context.get('radiumConfig');
+        const containedHTML = renderComponent(store, renderProps, radiumConfig);
 
         return renderFunction(header, initialState, containedHTML);
     }).then((compiled) => {
@@ -113,10 +119,18 @@ function resolveMatch({ routes, location }) {
     });
 }
 
-function renderComponent(store, renderProps) {
+function renderComponent(store, renderProps, radiumConfig = {}) {
     return renderToString(
         <Provider store={store}>
-            <RouterContext {...renderProps} />
+            <StyleRoot radiumConfig={radiumConfig}>
+                <RouterContext {...renderProps} />
+            </StyleRoot>
         </Provider>
     );
+}
+
+function createRadiumConfig({ headers }) {
+    return {
+        userAgent: headers['user-agent'],
+    };
 }

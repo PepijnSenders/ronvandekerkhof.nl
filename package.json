@@ -13,7 +13,7 @@
     "eslint": "eslint './src/**/*.{js,jsx}'",
     "lint": "npm run eslint",
     "lint:watch": "nodemon --exec 'npm run lint'",
-    "client": "webpack --display-modules",
+    "client": "webpack",
     "client:watch": "nodemon -e 'js jsx' --ignore 'public/dist/**/*.{js,jsx}' --ignore 'src/server/**/*.{js,jsx}' --exec 'npm run client'"
   },
   "repository": {
@@ -29,10 +29,12 @@
   "homepage": "https://github.com/PepijnSenders/ronvandekerkhof.nl#readme",
   "dependencies": {
     "body-parser": "^1.15.1",
+    "chroma-js": "^1.1.1",
     "express": "^4.13.4",
     "immutable": "^3.8.1",
     "method-override": "^2.3.6",
     "pug": "^2.0.0-beta2",
+    "radium": "^0.17.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-helmet": "^3.1.0",
@@ -51,6 +53,7 @@
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-es2015-classes": "^6.9.0",
     "babel-plugin-transform-react-constant-elements": "^6.9.1",
     "babel-plugin-transform-react-inline-elements": "^6.8.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.2.7",

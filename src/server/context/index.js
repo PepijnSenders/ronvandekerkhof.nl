@@ -4,11 +4,12 @@ import { Map } from 'immutable';
 import helmetConfig from '../../common/config/helmet';
 import fs from 'fs';
 
-export function createContext(store, routes) {
+export function createContext(store, routes, radiumConfig) {
     return new Map({
         store,
         routes,
         helmetConfig,
+        radiumConfig,
         renderIndex: (header, initialState, containedHTML) =>
             getTemplate(
                 path.resolve(__dirname, '../../..', 'resources/views/index.pug')
