@@ -7,17 +7,21 @@ import passportConfig from '<server/config>/passport';
 import { redux } from '<server/render>';
 import createAuthRoutes from '<server/routes>/auth';
 import createAdminRoutes from '<server/routes>/admin';
+import graphqlConfig from '<server/config>/graphql';
+import { schema } from '<server/graphql>';
 
 export function boot() {
     const app = express();
 
     mongooseConfig();
 
-    expressConfig(app);
     passportConfig(passport);
+    expressConfig(app, passport);
+
+    graphqlConfig(app, schema);
 
     createAuthRoutes(app, passport);
-    createAdminRoutes(app);
+    createAdminRoutes(app, passport, schema);
 
     app.get('/*', redux);
 

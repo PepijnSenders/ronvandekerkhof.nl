@@ -7,6 +7,14 @@ import {
 } from '<server/config>/facebook';
 
 export default function passportConfig(passport) {
+    passport.serializeUser(function(user, done) {
+        done(null, user);
+    });
+
+    passport.deserializeUser(function(user, done) {
+        done(null, user);
+    });
+
     passport.use(
         new FacebookStrategy({
             clientID,
@@ -15,7 +23,9 @@ export default function passportConfig(passport) {
         },
         (token, refreshToken, profile, done) => {
             process.nextTick(() => {
-                if (!!~PROFILE_IDS.indexOf(profile.id)) {
+                console.log('Profile attempted login', profile);
+
+                if (!!~PROFILE_IDS.indexOf(parseInt(profile.id, 10))) {
                     return done(null, profile);
                 }
 

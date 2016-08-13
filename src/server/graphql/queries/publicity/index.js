@@ -3,5 +3,5 @@ import multiple from '<server/graphql>/queries/publicity/multiple';
 
 export default {
     publicity: single,
-    publicitys: multiple,
+    publicities: multiple,
 };

@@ -1,8 +1,6 @@
 import graphqlHTTP from 'express-graphql';
 
-import { schema } from '<server/graphql>';
-
-export default function graphqlConfig(app) {
+export default function graphqlConfig(app, schema) {
     app.use('/graphql', graphqlHTTP(req => ({
         schema,
         pretty: true,

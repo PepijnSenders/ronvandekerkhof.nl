@@ -4,7 +4,6 @@ import {
 } from 'graphql';
 
 import portfolioType from '<server/graphql>/types/portfolioType';
-import { getProjection } from '<server/graphql>';
 import PortfolioModel from '<server/models>/Portfolio';
 
 export default {
@@ -15,12 +14,9 @@ export default {
             type: new NonNull(ID),
         },
     },
-    resolve(root, params, options) {
-        const projection = getProjection(options.fieldASTs[0]);
-
+    resolve(root, params) {
         return PortfolioModel
             .findById(params._id) // eslint-disable-line no-underscore-dangle
-            .select(projection)
             .exec();
     },
 };

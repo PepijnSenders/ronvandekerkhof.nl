@@ -2,11 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import compression from 'compression';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import { PUBLIC_PATH } from '<server/config>/paths';
 import { ENV } from '<common/config>/app';
-import { PORT } from '<server/config>/app';
+import { PORT, TOKEN_SECRET } from '<server/config>/app';
 import { isProduction } from '<common/utilities>/environment';
-import graphqlConfig from '<server/config>/graphql';
 
 function logServerStart(app) {
     console.log('--------------------------');
@@ -16,13 +17,15 @@ function logServerStart(app) {
     console.log('--------------------------');
 }
 
-export default (app) => {
+export default (app, passport) => {
     app.set('port', PORT);
     app.disable('x-powered-by');
 
     if (isProduction()) {
         app.use(compression());
     }
+
+    app.use(cookieParser());
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -31,7 +34,14 @@ export default (app) => {
     app.use(methodOverride());
     app.use(express.static(PUBLIC_PATH));
 
-    graphqlConfig(app);
+    app.use(session({
+        secret: TOKEN_SECRET,
+        resave: false,
+        saveUninitialized: true,
+    }));
+
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     logServerStart(app);
 };

@@ -6,14 +6,6 @@ import {
 import mutations from '<server/graphql>/mutations';
 import queries from '<server/graphql>/queries';
 
-export function getProjection(fieldASTs) {
-    return fieldASTs.selectionSet.selections.reduce((projections, selection) => {
-        projections[selection.name.value] = 1; // eslint-disable-line no-param-reassign
-
-        return projections;
-    }, {});
-}
-
 export const schema = new Schema({
     query: new ObjectType({
         name: 'Query',

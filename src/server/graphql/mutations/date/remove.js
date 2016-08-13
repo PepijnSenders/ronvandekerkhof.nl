@@ -4,7 +4,6 @@ import {
     GraphQLID as ID,
 } from 'graphql';
 
-import { getProjection } from '<server/graphql>';
 import DateModel from '<server/models>/Date';
 
 export default {
@@ -15,13 +14,10 @@ export default {
             type: new NonNull(ID),
         },
     },
-    resolve(root, params, options) {
-        const projection = getProjection(options.fieldASTs[0]);
-
+    resolve(root, params) {
         return new Promise((resolve, reject) => {
-            DateModel.findByIdAndRemove(params._id, { // eslint-disable-line no-underscore-dangle,max-len
-                select: projection,
-            }).exec((err) => {
+            DateModel.findByIdAndRemove(params._id) // eslint-disable-line no-underscore-dangle,max-len
+            .exec((err) => {
                 if (err) {
                     reject(err);
                 } else {

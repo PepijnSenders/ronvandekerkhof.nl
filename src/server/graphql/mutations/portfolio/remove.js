@@ -4,7 +4,6 @@ import {
     GraphQLID as ID,
 } from 'graphql';
 
-import { getProjection } from '<server/graphql>';
 import PortfolioModel from '<server/models>/Portfolio';
 
 export default {
@@ -16,12 +15,9 @@ export default {
         },
     },
     resolve(root, params, options) {
-        const projection = getProjection(options.fieldASTs[0]);
-
         return new Promise((resolve, reject) => {
-            PortfolioModel.findByIdAndRemove(params._id, {  // eslint-disable-line no-underscore-dangle,max-len
-                select: projection,
-            }).exec((err) => {
+            PortfolioModel.findByIdAndRemove(params._id)  // eslint-disable-line no-underscore-dangle,max-len
+            .exec((err) => {
                 if (err) {
                     reject(err);
                 } else {
