@@ -1,8 +1,4 @@
-import dates from '<server/views>/admin/dates';
-import abouts from '<server/views>/admin/abouts';
-import portfolios from '<server/views>/admin/portfolios';
-import publicities from '<server/views>/admin/publicities';
-import layout from '<server/views>/admin/layout';
+import views from '<server/views>/admin';
 import { graphql } from 'graphql';
 
 export default function createAdminRoutes(app, passport, schema) {
@@ -10,77 +6,31 @@ export default function createAdminRoutes(app, passport, schema) {
         res.redirect('/admin/dates');
     });
 
-    app.get('/admin/dates', isLoggedIn, function(req, res) {
+    app.get('/admin/:model', isLoggedIn, function(req, res) {
+        const model = req.params.model;
+
+        const fields = ['_id', 'updatedAt'];
+
+        if (model === 'abouts') {
+            fields.push('title');
+        }
+
+        if (model === 'dates') {
+            fields.concat([
+                'date',
+                'name',
+            ]);
+        }
+
+        console.log(views[model], views);
+
         graphql(schema, `
             query {
-                dates {
-                    _id
-                    date
-                    name
-                    updatedAt
-                }
+                ${model} { ${fields.join(' ')} }
             }
         `).then(function(result) {
-            res.send(layout(dates({
-                dates: result.data.dates,
-            })));
-        }).catch(err => {
-            console.error(err.stack);
-
-            res.send(err.message);
-        });
-    });
-
-    app.get('/admin/abouts', isLoggedIn, function(req, res) {
-        graphql(schema, `
-            query {
-                abouts {
-                    _id
-                    title
-                    updatedAt
-                }
-            }
-        `).then(function(result) {
-            res.send(layout(abouts({
-                abouts: result.data.abouts,
-            })));
-        }).catch(err => {
-            console.error(err.stack);
-
-            res.send(err.message);
-        });
-    });
-
-    app.get('/admin/publicities', isLoggedIn, function(req, res) {
-        graphql(schema, `
-            query {
-                publicities {
-                    _id
-                    updatedAt
-                }
-            }
-        `).then(function(result) {
-            res.send(layout(publicities({
-                publicities: result.data.publicities,
-            })));
-        }).catch(err => {
-            console.error(err.stack);
-
-            res.send(err.message);
-        });
-    });
-
-    app.get('/admin/portfolios', isLoggedIn, function(req, res) {
-        graphql(schema, `
-            query {
-                portfolios {
-                    _id
-                    updatedAt
-                }
-            }
-        `).then(function(result) {
-            res.send(layout(portfolios({
-                portfolios: result.data.portfolios,
+            res.send(views.layout(views[model]({
+                [model]: result.data[model],
             })));
         }).catch(err => {
             console.error(err.stack);
