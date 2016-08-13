@@ -3,4 +3,4 @@ export const APP_SECRET = process.env.FACEBOOK_APP_SECRET || '62928315b6d9e264e6
 export const CALLBACK_URL = process.env.FACEBOOK_CALLBACK_URL ||
     'http://localhost:3000/auth/callback';
 
-export const PROFILE_IDS = [1768338896747663, 100000649448300];
+export const PROFILE_IDS = [1768338896747663, 1208299805868323];
