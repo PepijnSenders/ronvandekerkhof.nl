@@ -2,6 +2,8 @@ var path = require('path');
 var webpack = require('webpack');
 var fs = require('fs');
 
+var isDebug = process.env.NODE_ENV !== 'production';
+
 var context = path.join(__dirname, 'src');
 
 var babelRc = JSON.parse(
@@ -15,7 +17,7 @@ module.exports = {
     devtool: 'eval',
     context: context,
     entry: [
-        './client/index.jsx'
+        './client/index.js'
     ],
     output: {
         path: path.join(context, '..', 'public/dist'),
@@ -35,11 +37,17 @@ module.exports = {
                 loader: 'babel-loader',
                 query: {
                     presets: babelRc.presets,
-                    plugins: babelRc.plugins,
+                    plugins: babelRc.plugins.concat(!isDebug ? [
+                        'babel-plugin-transform-decorators-legacy',
+                        'babel-plugin-transform-react-constant-elements',
+                        'babel-plugin-transform-react-inline-elements',
+                        'babel-plugin-transform-react-remove-prop-types',
+                    ] : []),
                 },
                 include: context,
                 exclude: path.join(context, '..', 'node_modules')
-            }
+            },
+            { test: /\.css$/, loader: 'style!css' + (!isDebug ? '?optimize' : '') }
         ]
     },
     plugins: [
@@ -47,8 +55,13 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env': {
                 IS_CLIENT: true,
-                NODE_ENV: '"dev"',
+                NODE_ENV: `"${process.env.NODE_ENV}"`,
             },
         }),
-    ]
+    ].concat(!isDebug ? [
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: false,
+            mangle: true,
+        }),
+    ] : [])
 };
