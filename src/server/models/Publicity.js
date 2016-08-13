@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import timestamps from 'mongoose-timestamp';
 
-export const publicitySchema = mongoose.Schema({
+export const publicitySchema = new mongoose.Schema({
 });
 
 publicitySchema.plugin(timestamps);

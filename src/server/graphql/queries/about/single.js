@@ -8,7 +8,7 @@ export default {
         const projection = getProjection(options.fieldASTs[0]);
 
         return AboutModel
-            .findOne({}, {}, { sort: { createdAt : -1 } })
+            .findOne({}, {}, { sort: { createdAt: -1 } })
             .select(projection)
             .exec();
     },

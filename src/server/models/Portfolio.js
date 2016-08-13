@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import timestamps from 'mongoose-timestamp';
 
-export const portfolioSchema = mongoose.Schema({
+export const portfolioSchema = new mongoose.Schema({
 });
 
 portfolioSchema.plugin(timestamps);

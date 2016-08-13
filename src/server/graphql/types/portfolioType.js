@@ -1,8 +1,6 @@
 import {
     GraphQLObjectType as ObjectType,
-    GraphQLNonNull as NonNull,
-    GraphQLString as String,
-    GraphQLID as ID
+    GraphQLID as ID,
 } from 'graphql';
 import GraphQLDate from 'graphql-date';
 
@@ -18,5 +16,5 @@ export default new ObjectType({
         updatedAt: {
             type: GraphQLDate,
         },
-    }
+    },
 });

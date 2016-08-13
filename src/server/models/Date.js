@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import timestamps from 'mongoose-timestamp';
 
-export const dateSchema = mongoose.Schema({
+export const dateSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,

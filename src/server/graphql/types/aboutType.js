@@ -23,5 +23,5 @@ export default new ObjectType({
         updatedAt: {
             type: GraphQLDate,
         },
-    }
+    },
 });
