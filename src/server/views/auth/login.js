@@ -19,7 +19,7 @@ export default function login() {
 
                 <p>Login or Register with:</p>
 
-                <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+                <a href="/auth" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
             </div>
         </div>
         </body>
