@@ -1,3 +1,7 @@
 export const RENDER_REQUEST = 'RENDER_REQUEST';
 export const RENDER_FINISHED = 'RENDER_FINISHED';
 export const RENDER_FAILED = 'RENDER_FAILED';
+
+export const REQUEST = 'REQUEST';
+export const RESPONSE = 'RESPONSE';
+export const FAILED_REQUEST = 'FAILED_REQUEST';

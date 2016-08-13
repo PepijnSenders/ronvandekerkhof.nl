@@ -23,6 +23,10 @@ export function boot() {
     createAuthRoutes(app, passport);
     createAdminRoutes(app, passport, schema);
 
+    app.get('/favicon.ico', function(req, res) {
+        res.send('');
+    });
+
     app.get('/*', redux);
 
     app.listen(PORT);

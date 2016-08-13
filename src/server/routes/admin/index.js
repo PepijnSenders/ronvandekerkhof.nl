@@ -28,7 +28,7 @@ export default function createAdminRoutes(app, passport, schema) {
 
     app.get('/admin/porfolio', isLoggedIn, function(req, res) {
         graphql(schema, `
-            query FetchDates {
+            query FetchPortfolio {
                 porfolios { _id updatedAt }
             }
         `).then(function(result) {
@@ -44,7 +44,7 @@ export default function createAdminRoutes(app, passport, schema) {
 
     app.get('/admin/about', isLoggedIn, function(req, res) {
         graphql(schema, `
-            query FetchDates {
+            query FetchAbout {
                 abouts { _id title updatedAt }
             }
         `).then(function(result) {
@@ -60,7 +60,7 @@ export default function createAdminRoutes(app, passport, schema) {
 
     app.get('/admin/publicity', isLoggedIn, function(req, res) {
         graphql(schema, `
-            query FetchDates {
+            query FetchPublicity {
                 publicities { _id updatedAt }
             }
         `).then(function(result) {

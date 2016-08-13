@@ -23,6 +23,7 @@
                 { "src": "./src/common/constants", "expose": "<common/constants>" },
                 { "src": "./src/common/components", "expose": "<common/components>" },
                 { "src": "./src/common/containers", "expose": "<common/containers>" },
+                { "src": "./src/common/data", "expose": "<common/data>" },
                 { "src": "./src/common/middlewares", "expose": "<common/middlewares>" },
                 { "src": "./src/common/reducers", "expose": "<common/reducers>" },
                 { "src": "./src/common/routes", "expose": "<common/routes>" },

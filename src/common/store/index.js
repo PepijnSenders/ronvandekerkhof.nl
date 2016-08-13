@@ -4,9 +4,12 @@ import { isDebug } from '<common/utilities>/environment';
 import thunk from 'redux-thunk';
 import rootReducer from '<common/reducers>';
 import reduxLoggerMiddleware from '<common/middlewares>/reduxLoggerMiddleware';
+import graphqlFetch from '<common/data>/graphqlFetch';
 
 export function configureStore(initialState, history) {
-    const middleware = [thunk, routerMiddleware(history)];
+    const middleware = [thunk.withExtraArgument({
+        graphqlFetch,
+    }), routerMiddleware(history)];
 
     if (isDebug()) {
         middleware.push(reduxLoggerMiddleware);

@@ -1,24 +1,29 @@
 import '<client/styles>';
 
+import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { Router } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { fromJS } from 'immutable';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import { StyleSheet } from 'aphrodite';
+
 import createRoutes from '<common/routes>';
 import { configureStore } from '<common/store>';
-import preRenderMiddleware from
-    '<common/middlewares>/preRenderMiddleware';
 import { renderFinished } from '<common/actions>';
+import { createHistory } from '<common/utilities>/history';
 
 const initialState = fromJS(
     window.__INITIAL_STATE__ // eslint-disable-line no-underscore-dangle
 );
+StyleSheet.rehydrate(window.__APHRODITE_CLASSNAMES__); // eslint-disable-line no-underscore-dangle
 
-const store = configureStore(initialState, browserHistory);
+const routes = createRoutes();
 
-syncHistoryWithStore(browserHistory, store, {
+const history = createHistory(routes);
+const store = configureStore(initialState, history);
+
+syncHistoryWithStore(history, store, {
     selectLocationState(state) {
         return state.get('routing').toJS();
     },
@@ -32,22 +37,11 @@ export function onUpdate() {
 
         return;
     }
-
-    const {
-        components,
-        params,
-    } = this.state;
-
-    preRenderMiddleware(store.dispatch, components, params);
 }
-
-const routes = createRoutes();
-
-injectTapEventPlugin();
 
 render(
     <Provider store={store}>
-        <Router history={browserHistory} onUpdate={onUpdate}>
+        <Router history={history} onUpdate={onUpdate}>
             {routes}
         </Router>
     </Provider>,

@@ -2,11 +2,12 @@ import { Map } from 'immutable';
 import index from '<common/templates>';
 import helmetConfig from '<common/config>/helmet';
 
-export function createContext(store, routes) {
+export function createContext(store, routes, req) {
     return new Map({
         store,
         routes,
         helmetConfig,
+        req,
         renderIndex: (header, initialState, html, css) =>
             Promise.resolve(
                 index({

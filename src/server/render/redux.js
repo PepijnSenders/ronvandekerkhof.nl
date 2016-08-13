@@ -1,11 +1,13 @@
-import { createMemoryHistory, match, RouterContext } from 'react-router';
+import { match, RouterContext } from 'react-router';
 import { Map, fromJS } from 'immutable';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 import { StyleSheetServer } from 'aphrodite';
+import { default as createMemoryHistory } from 'history/lib/createMemoryHistory';
 
+import { createHistory } from '<common/utilities>/history';
 import { configureStore } from '<common/store>';
 import { renderRequest, renderFailed } from '<common/actions>';
 import { createContext } from '<server/context>';
@@ -17,10 +19,12 @@ import preRenderMiddleware from
     '<common/middlewares>/preRenderMiddleware';
 
 export default function redux(req, res) {
-    const history = createMemoryHistory();
+    const routes = createRoutes();
+
+    const history = createHistory(routes, createMemoryHistory);
     const store = configureStore(fromJS({}), history);
 
-    const context = createContext(store, createRoutes());
+    const context = createContext(store, createRoutes(), req);
 
     store.dispatch(renderRequest(req.url));
 
@@ -72,13 +76,14 @@ export function renderer(context = new Map(), location) {
     });
 }
 
-function renderHTML(renderProps, context) {
+function renderHTML(renderProps, context, req) {
     const store = context.get('store');
 
     return preRenderMiddleware(
         store.dispatch,
         renderProps.components,
-        renderProps.params
+        renderProps.params,
+        context.get('req')
     ).then(() => {
         const header = renderHeader(context.get('helmetConfig'));
         const renderFunction = context.get('renderIndex');
@@ -117,7 +122,6 @@ function resolveMatch({ routes, location }) {
 }
 
 function renderComponent(store, renderProps) {
-    console.log(StyleSheetServer);
     return StyleSheetServer.renderStatic(() =>
         renderToString(
             <Provider store={store}>
