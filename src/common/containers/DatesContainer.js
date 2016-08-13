@@ -19,7 +19,7 @@ class DatesContainer extends Component {
             <section>
                 <h2>Dates</h2>
                 {
-                    this.props.dates.map(date => <DateComponent date={date.toJS()} />)
+                    this.props.dates.map(date => <DateComponent date={date} />)
                 }
             </section>
         );

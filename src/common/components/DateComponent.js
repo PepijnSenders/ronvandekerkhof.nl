@@ -3,9 +3,11 @@ import moment from 'moment';
 
 function DateComponent({ date }) {
     return (
-        <p>
-            {moment(date.date).format('DD.MM.YYYY')}
-        </p>
+        <a href={date.get('link')}>
+            {moment(date.get('date')).format('DD.MM.YYYY')}
+            -
+            {date.get('name')}
+        </a>
     );
 }
 
