@@ -1,5 +1,5 @@
-import HttpError from './errors/HttpError';
 import { STATUS_CODES } from 'http';
+import HttpError from '<server/http>/errors/HttpError';
 
 function logResponse(log, status, message) {
     log(`SEND: ${status}/${message}`);
@@ -11,7 +11,7 @@ export function send(status, data) {
     return {
         status,
         body: data,
-    }
+    };
 }
 
 export function sendError(err) {

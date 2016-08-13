@@ -1,7 +1,7 @@
 import express from 'express';
-import { PORT } from './config/app';
-import expressConfig from './config/express';
-import { react } from './render';
+import { PORT } from '<server/config>/app';
+import expressConfig from '<server/config>/express';
+import { react } from '<server/render>';
 
 export function boot() {
     const app = express();

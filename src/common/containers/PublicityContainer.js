@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import Radium from 'radium';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 
 class PublicityContainer extends Component {
@@ -13,8 +12,7 @@ class PublicityContainer extends Component {
 const mapStateToProps = () => ({});
 const mapDispatchToProps = () => ({});
 
-export default Radium(
+export default
     connect(mapStateToProps, mapDispatchToProps)(
         PublicityContainer
-    )
-);
+    );

@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 
-const Meta = ({ config }) => {
+function Meta({ config }) {
     return (
         <Helmet
             htmlAttributes={{
@@ -13,7 +13,7 @@ const Meta = ({ config }) => {
             link={config.link}
         />
     );
-};
+}
 
 Meta.propTypes = {
     config: PropTypes.object.isRequired,

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
-import AppContainer from './containers/AppContainer';
-import AboutContainer from './containers/AboutContainer';
-import DatesContainer from './containers/DatesContainer';
-import PortfolioContainer from './containers/PortfolioContainer';
-import PublicityContainer from './containers/PublicityContainer';
+import AppContainer from '<common/containers>/AppContainer';
+import AboutContainer from '<common/containers>/AboutContainer';
+import DatesContainer from '<common/containers>/DatesContainer';
+import PortfolioContainer from '<common/containers>/PortfolioContainer';
+import PublicityContainer from '<common/containers>/PublicityContainer';
 
 export const ABOUT_PATH = '/about';
 export const DATES_PATH = '/dates';

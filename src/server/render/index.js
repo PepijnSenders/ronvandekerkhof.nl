@@ -1,4 +1,4 @@
-import react from './react';
+import react from '<server/render>/react';
 
 export {
     react,

@@ -1,22 +1,12 @@
-import React, { Component } from 'react';
-import Radium, { StyleRoot, Style } from 'radium';
+import { Component } from 'react';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
+import Main from '<common/components>/Main';
 
 class AppContainer extends Component {
     render() {
         return (
             <div>
                 <Main children={this.props.children} />
-
-                <Style
-                    scopeSelector="html"
-                    rules={styles.html}
-                />
-                <Style
-                    scopeSelector="body"
-                    rules={styles.body}
-                />
             </div>
         );
     }
@@ -40,8 +30,7 @@ export const styles = {
 const mapStateToProps = () => ({});
 const mapDispatchToProps = () => ({});
 
-export default Radium(
+export default
     connect(mapStateToProps, mapDispatchToProps)(
         AppContainer
-    )
-);
+    );

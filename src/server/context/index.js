@@ -1,29 +1,21 @@
-import pug from 'pug';
-import path from 'path';
 import { Map } from 'immutable';
-import helmetConfig from '../../common/config/helmet';
-import fs from 'fs';
+import index from '<common/templates>';
 
-export function createContext(store, routes, radiumConfig) {
+export function createContext(store, routes) {
     return new Map({
         store,
         routes,
-        helmetConfig,
-        radiumConfig,
-        renderIndex: (header, initialState, containedHTML) =>
-            getTemplate(
-                path.resolve(__dirname, '../../..', 'resources/views/index.pug')
-            ).then(
-                (template) =>
-                    pug.compile(template)({
-                        header,
-                        initialState,
-                        containedHTML,
-                        title: extractTitleFromHelmet(header),
-                    })
+        renderIndex: (header, initialState, html, css) =>
+            Promise.resolve(
+                index({
+                    header,
+                    initialState,
+                    html,
+                    css,
+                    title: extractTitleFromHelmet(header),
+                })
             ),
     });
-
 }
 
 export function extractTitleFromHelmet(header) {
@@ -32,19 +24,4 @@ export function extractTitleFromHelmet(header) {
     } catch (e) {
         return '';
     }
-}
-
-export function getTemplate(templatePath) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(
-            templatePath,
-            (err, data) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(data.toString());
-                }
-            }
-        );
-    });
 }

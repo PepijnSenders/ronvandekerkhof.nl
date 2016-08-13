@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
-import { isDebug } from '../utilities/environment';
+import { isDebug } from '<common/utilities>/environment';
 import thunk from 'redux-thunk';
-import rootReducer from '../reducers';
-import reduxLoggerMiddleware from '../middlewares/reduxLoggerMiddleware';
+import rootReducer from '<common/reducers>';
+import reduxLoggerMiddleware from '<common/middlewares>/reduxLoggerMiddleware';
 
 export function configureStore(initialState, history) {
     const middleware = [thunk, routerMiddleware(history)];

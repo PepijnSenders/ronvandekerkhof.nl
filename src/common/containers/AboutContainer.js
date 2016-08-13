@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import Radium from 'radium';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 
-class DatesContainer extends Component {
+class AboutContainer extends Component {
     render() {
         return (
-            <h2>Dates</h2>
+            <h2>About</h2>
         );
     }
 }
@@ -13,8 +12,7 @@ class DatesContainer extends Component {
 const mapStateToProps = () => ({});
 const mapDispatchToProps = () => ({});
 
-export default Radium(
+export default
     connect(mapStateToProps, mapDispatchToProps)(
-        DatesContainer
-    )
-);
+        AboutContainer
+    );

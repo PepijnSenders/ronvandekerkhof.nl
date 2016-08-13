@@ -1,27 +1,25 @@
-import { createMemoryHistory } from 'react-router';
-import { configureStore } from '../../common/store';
-import { renderRequest, renderFailed } from '../../common/actions';
+import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { Map, fromJS } from 'immutable';
-import { createContext } from '../context';
-import createRoutes from '../../common/routes';
 import React from 'react';
-import { match, RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
-import HttpError from '../http/errors/HttpError';
-import { send, sendError, redirect } from '../http/response';
-import Meta from '../../common/components/Meta';
-import helmetConfig from '../../common/config/helmet';
-import fetchComponentDataBeforeRender from
-    '../../common/middlewares/fetchComponentDataBeforeRender';
-import { StyleRoot } from 'radium';
+
+import { configureStore } from '<common/store>';
+import { renderRequest, renderFailed } from '<common/actions>';
+import { createContext } from '<server/context>';
+import createRoutes from '<common/routes>';
+import HttpError from '<server/http>/errors/HttpError';
+import { send, sendError, redirect } from '<server/http>/response';
+import Meta from '<common/components>/Meta';
+import preRenderMiddleware from
+    '<common/middlewares>/preRenderMiddleware';
 
 export default function render(req, res) {
     const history = createMemoryHistory();
     const store = configureStore(fromJS({}), history);
 
-    const context = createContext(store, createRoutes(), createRadiumConfig(req));
+    const context = createContext(store, createRoutes());
 
     store.dispatch(renderRequest(req.url));
 
@@ -44,7 +42,7 @@ export default function render(req, res) {
         });
 }
 
-export function renderer(context = new Map, location) {
+export function renderer(context = new Map(), location) {
     return resolveMatch({
         routes: context.get('routes'),
         location,
@@ -76,7 +74,7 @@ export function renderer(context = new Map, location) {
 function renderHTML(renderProps, context) {
     const store = context.get('store');
 
-    return fetchComponentDataBeforeRender(
+    return preRenderMiddleware(
         store.dispatch,
         renderProps.components,
         renderProps.params
@@ -88,9 +86,7 @@ function renderHTML(renderProps, context) {
         const containedHTML = renderComponent(store, renderProps, radiumConfig);
 
         return renderFunction(header, initialState, containedHTML);
-    }).then((compiled) => {
-        return send(200, compiled);
-    });
+    }).then((compiled) => send(200, compiled));
 }
 
 function renderHeader(config) {
@@ -119,18 +115,10 @@ function resolveMatch({ routes, location }) {
     });
 }
 
-function renderComponent(store, renderProps, radiumConfig = {}) {
+function renderComponent(store, renderProps) {
     return renderToString(
         <Provider store={store}>
-            <StyleRoot radiumConfig={radiumConfig}>
-                <RouterContext {...renderProps} />
-            </StyleRoot>
+            <RouterContext {...renderProps} />
         </Provider>
     );
-}
-
-function createRadiumConfig({ headers }) {
-    return {
-        userAgent: headers['user-agent'],
-    };
 }

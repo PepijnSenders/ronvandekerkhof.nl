@@ -1,4 +1,4 @@
-import { ENV } from '../config/app';
+import { ENV } from '<common/config>/app';
 
 export function isDebug() {
     return ENV === 'dev';

@@ -1,5 +1,5 @@
 import createLogger from 'redux-logger';
-import { IS_CLIENT } from '../config/app';
+import { IS_CLIENT } from '<common/config>/app';
 
 export default createLogger({
     collapsed: true,

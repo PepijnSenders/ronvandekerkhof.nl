@@ -1,9 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
-import { PUBLIC_PATH } from './paths';
-import { ENV } from '../../common/config/app';
-import { PORT } from './app';
+import compression from 'compression';
+import { PUBLIC_PATH } from '<server/config>/paths';
+import { ENV } from '<common/config>/app';
+import { PORT } from '<server/config>/app';
+import { isProduction } from '<common/utilities>/environment';
 
 function logServerStart(app) {
     console.log('--------------------------');
@@ -16,6 +18,10 @@ function logServerStart(app) {
 export default (app) => {
     app.set('port', PORT);
     app.disable('x-powered-by');
+
+    if (isProduction()) {
+        app.use(compression());
+    }
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({

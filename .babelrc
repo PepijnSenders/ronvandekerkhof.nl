@@ -1,4 +1,31 @@
 {
-    "presets": ["react", "node5"],
-    "plugins": ["transform-es2015-classes"]
+    "presets": ["senf"],
+    "plugins": [
+        "html-template",
+        "react-require",
+        [
+            "module-alias", [
+                { "src": "./src/client", "expose": "<client>" },
+                { "src": "./src/client/styles", "expose": "<client/styles>" },
+                { "src": "./src/server", "expose": "<server>" },
+                { "src": "./src/server/config", "expose": "<server/config>" },
+                { "src": "./src/server/context", "expose": "<server/context>" },
+                { "src": "./src/server/http", "expose": "<server/http>" },
+                { "src": "./src/server/middlewares", "expose": "<server/middlewares>" },
+                { "src": "./src/server/render", "expose": "<server/render>" },
+                { "src": "./src/common", "expose": "<common>" },
+                { "src": "./src/common/actions", "expose": "<common/actions>" },
+                { "src": "./src/common/config", "expose": "<common/config>" },
+                { "src": "./src/common/constants", "expose": "<common/constants>" },
+                { "src": "./src/common/components", "expose": "<common/components>" },
+                { "src": "./src/common/containers", "expose": "<common/containers>" },
+                { "src": "./src/common/middlewares", "expose": "<common/middlewares>" },
+                { "src": "./src/common/reducers", "expose": "<common/reducers>" },
+                { "src": "./src/common/routes", "expose": "<common/routes>" },
+                { "src": "./src/common/templates", "expose": "<common/templates>" },
+                { "src": "./src/common/store", "expose": "<common/store>" },
+                { "src": "./src/common/utilities", "expose": "<common/utilities>" }
+            ]
+        ]
+    ]
 }

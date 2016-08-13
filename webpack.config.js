@@ -12,7 +12,7 @@ var babelRc = JSON.parse(
 
 module.exports = {
     name: 'Ron van de Kerkhof Dev',
-    devtool: 'source-map',
+    devtool: 'eval',
     context: context,
     entry: [
         './client/index.jsx'
@@ -35,7 +35,7 @@ module.exports = {
                 loader: 'babel-loader',
                 query: {
                     presets: babelRc.presets,
-                    plugins: ['transform-decorators-legacy'],
+                    plugins: babelRc.plugins,
                 },
                 include: context,
                 exclude: path.join(context, '..', 'node_modules')

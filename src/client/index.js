@@ -3,12 +3,13 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import createRoutes from '../common/routes';
-import { configureStore } from '../common/store';
-import fetchComponentDataBeforeRender from
-    '../common/middlewares/fetchComponentDataBeforeRender';
 import { fromJS } from 'immutable';
-import { renderFinished } from '../common/actions';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import createRoutes from '<common/routes>';
+import { configureStore } from '<common/store>';
+import preRenderMiddleware from
+    '<common/middlewares>/preRenderMiddleware';
+import { renderFinished } from '<common/actions>';
 
 const initialState = fromJS(
     window.__INITIAL_STATE__ // eslint-disable-line no-underscore-dangle
@@ -36,10 +37,12 @@ export function onUpdate() {
         params,
     } = this.state;
 
-    fetchComponentDataBeforeRender(store.dispatch, components, params);
+    preRenderMiddleware(store.dispatch, components, params);
 }
 
 const routes = createRoutes();
+
+injectTapEventPlugin();
 
 render(
     <Provider store={store}>

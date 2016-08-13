@@ -2,7 +2,7 @@ import {
     RENDER_REQUEST,
     RENDER_FINISHED,
     RENDER_FAILED,
-} from '../constants/types';
+} from '<common/constants>/types';
 import { Map } from 'immutable';
 
 export function responseReducer(state = new Map(), action) {
