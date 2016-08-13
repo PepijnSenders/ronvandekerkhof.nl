@@ -6,6 +6,7 @@ import { PUBLIC_PATH } from '<server/config>/paths';
 import { ENV } from '<common/config>/app';
 import { PORT } from '<server/config>/app';
 import { isProduction } from '<common/utilities>/environment';
+import graphqlConfig from '<server/config>/graphql';
 
 function logServerStart(app) {
     console.log('--------------------------');
@@ -29,6 +30,8 @@ export default (app) => {
     }));
     app.use(methodOverride());
     app.use(express.static(PUBLIC_PATH));
+
+    graphqlConfig(app);
 
     logServerStart(app);
 };

@@ -14,7 +14,7 @@ export function getProjection(fieldASTs) {
     }, {});
 }
 
-export default new Schema({
+export const schema = new Schema({
     query: new ObjectType({
         name: 'Query',
         fields: queries,
