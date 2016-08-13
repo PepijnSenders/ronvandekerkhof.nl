@@ -13,6 +13,8 @@
                 { "src": "./src/server/http", "expose": "<server/http>" },
                 { "src": "./src/server/middlewares", "expose": "<server/middlewares>" },
                 { "src": "./src/server/render", "expose": "<server/render>" },
+                { "src": "./src/server/routes", "expose": "<server/routes>" },
+                { "src": "./src/server/views", "expose": "<server/views>" },
                 { "src": "./src/common", "expose": "<common>" },
                 { "src": "./src/common/actions", "expose": "<common/actions>" },
                 { "src": "./src/common/config", "expose": "<common/config>" },
