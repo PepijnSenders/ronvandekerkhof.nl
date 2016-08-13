@@ -1,5 +1,5 @@
-import react from '<server/render>/react';
+import redux from '<server/render>/redux';
 
 export {
-    react,
+    redux,
 };

@@ -4,7 +4,7 @@ import { PORT } from '<server/config>/app';
 import mongooseConfig from '<server/config>/mongoose';
 import expressConfig from '<server/config>/express';
 import passportConfig from '<server/config>/passport';
-import { react } from '<server/render>';
+import { redux } from '<server/render>';
 import createAuthRoutes from '<server/routes>/auth';
 import createAdminRoutes from '<server/routes>/admin';
 
@@ -16,10 +16,10 @@ export function boot() {
     expressConfig(app);
     passportConfig(passport);
 
-    app.get('/*', react);
-
     createAuthRoutes(app, passport);
     createAdminRoutes(app);
+
+    app.get('/*', redux);
 
     app.listen(PORT);
 }

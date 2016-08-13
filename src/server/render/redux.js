@@ -4,6 +4,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
+import { StyleSheetServer } from 'aphrodite';
 
 import { configureStore } from '<common/store>';
 import { renderRequest, renderFailed } from '<common/actions>';
@@ -15,7 +16,7 @@ import Meta from '<common/components>/Meta';
 import preRenderMiddleware from
     '<common/middlewares>/preRenderMiddleware';
 
-export default function render(req, res) {
+export default function redux(req, res) {
     const history = createMemoryHistory();
     const store = configureStore(fromJS({}), history);
 
@@ -83,9 +84,9 @@ function renderHTML(renderProps, context) {
         const renderFunction = context.get('renderIndex');
         const initialState = store.getState();
         const radiumConfig = context.get('radiumConfig');
-        const containedHTML = renderComponent(store, renderProps, radiumConfig);
+        const { css, html } = renderComponent(store, renderProps, radiumConfig);
 
-        return renderFunction(header, initialState, containedHTML);
+        return renderFunction(header, initialState, html, css);
     }).then((compiled) => send(200, compiled));
 }
 
@@ -116,9 +117,12 @@ function resolveMatch({ routes, location }) {
 }
 
 function renderComponent(store, renderProps) {
-    return renderToString(
-        <Provider store={store}>
-            <RouterContext {...renderProps} />
-        </Provider>
+    console.log(StyleSheetServer);
+    return StyleSheetServer.renderStatic(() =>
+        renderToString(
+            <Provider store={store}>
+                <RouterContext {...renderProps} />
+            </Provider>
+        )
     );
 }

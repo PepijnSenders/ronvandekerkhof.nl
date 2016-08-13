@@ -35,7 +35,7 @@ export const styles = {
 };
 
 Main.propTypes = {
-    children: PropTypes.isRequired,
+    children: PropTypes.object.isRequired,
 };
 
 export default Main;

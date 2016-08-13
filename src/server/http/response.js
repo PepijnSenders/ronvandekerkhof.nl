@@ -22,6 +22,8 @@ export function sendError(err) {
 
     logResponse(console.log, httpError.status, httpError.message);
 
+    console.log(httpError.stack);
+
     return {
         status: httpError.status,
         body: httpError.message,
