@@ -26,9 +26,7 @@ export default {
                 if (err) {
                     reject(err);
                 } else {
-                    const mergedPublicity = merge(publicity, params.data);
-
-                    PortfolioModel.save(mergedPublicity, (saveErr) => {
+                    merge(publicity, params.data).save((saveErr) => {
                         if (saveErr) {
                             reject(saveErr);
                         } else {

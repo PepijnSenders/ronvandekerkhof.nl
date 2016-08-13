@@ -26,9 +26,7 @@ export default {
                 if (err) {
                     reject(err);
                 } else {
-                    const mergedAbout = merge(about, params.data);
-
-                    AboutModel.save(mergedAbout, (saveErr) => {
+                    merge(about, params.data).save((saveErr) => {
                         if (saveErr) {
                             reject(saveErr);
                         } else {

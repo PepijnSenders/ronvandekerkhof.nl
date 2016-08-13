@@ -26,9 +26,7 @@ export default {
                 if (err) {
                     reject(err);
                 } else {
-                    const mergedPortfolio = merge(portfolio, params.data);
-
-                    PortfolioModel.save(mergedPortfolio, (saveErr) => {
+                    merge(portfolio, params.data).save((saveErr) => {
                         if (saveErr) {
                             reject(saveErr);
                         } else {

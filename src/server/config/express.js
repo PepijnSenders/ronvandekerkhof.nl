@@ -31,7 +31,7 @@ export default (app, passport) => {
     app.use(bodyParser.urlencoded({
         extended: true,
     }));
-    app.use(methodOverride());
+    app.use(methodOverride('_method'));
     app.use(express.static(PUBLIC_PATH));
 
     app.use(session({

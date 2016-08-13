@@ -1,17 +1,20 @@
-export default function abouts(options) {
+export function list(options) {
     return html`
         <h1>About</h1>
+        <p>
+            <a class="btn" href="/admin/about/create">Add new</a>
+        </p>
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        ID
+                        _id
                     </th>
                     <th>
                         Title
                     </th>
                     <th>
-                        Updated at
+                        Updated At
                     </th>
                     <th>
                         Actions
@@ -19,16 +22,22 @@ export default function abouts(options) {
                 </tr>
             </thead>
             <tbody>
-                ${options.abouts.map(about => html`
+                ${options.data.map(record => html`
                     <tr>
                         <td>
-                            ${about._id}
+                            ${record._id}
                         </td>
                         <td>
-                            ${about.title}
+                            ${record.title}
                         </td>
                         <td>
-                            ${about.updatedAt}
+                            ${record.updatedAt}
+                        </td>
+                        <td>
+                            <a class="btn" href="/admin/about/edit/${record._id}">Edit</a>
+                            <form action="/admin/about/${record._id}" method="DELETE">
+                                <button class="btn" type="submit">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 `).join('\n')}

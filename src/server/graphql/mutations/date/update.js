@@ -26,9 +26,7 @@ export default {
                 if (err) {
                     reject(err);
                 } else {
-                    const mergedDate = merge(date, params.data);
-
-                    DateModel.save(mergedDate, (saveErr) => {
+                    merge(date, params.data).save((saveErr) => {
                         if (saveErr) {
                             reject(saveErr);
                         } else {

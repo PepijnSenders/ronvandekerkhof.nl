@@ -1,4 +1,4 @@
-export default function layout(content) {
+export function layout(content) {
     return html`
         <!doctype html>
         <html lang="en">

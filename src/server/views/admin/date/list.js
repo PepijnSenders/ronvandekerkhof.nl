@@ -1,11 +1,14 @@
-export default function dates(options) {
+export function list(options) {
     return html`
-        <h1>Dates</h1>
+        <h1>Date</h1>
+        <p>
+            <a class="btn" href="/admin/date/create">Add new</a>
+        </p>
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        ID
+                        _id
                     </th>
                     <th>
                         Date
@@ -14,7 +17,7 @@ export default function dates(options) {
                         Name
                     </th>
                     <th>
-                        Updated at
+                        Updated At
                     </th>
                     <th>
                         Actions
@@ -22,19 +25,25 @@ export default function dates(options) {
                 </tr>
             </thead>
             <tbody>
-                ${options.dates.map(date => html`
+                ${options.data.map(record => html`
                     <tr>
                         <td>
-                            ${date._id}
+                            ${record._id}
                         </td>
                         <td>
-                            ${date.date}
+                            ${record.date}
                         </td>
                         <td>
-                            ${date.name}
+                            ${record.name}
                         </td>
                         <td>
-                            ${date.updatedAt}
+                            ${record.updatedAt}
+                        </td>
+                        <td>
+                            <a class="btn" href="/admin/date/edit/${record._id}">Edit</a>
+                            <form action="/admin/date/${record._id}?_method=DELETE" method="POST">
+                                <button class="btn" type="submit">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 `).join('\n')}
