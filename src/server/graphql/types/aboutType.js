@@ -6,7 +6,7 @@ import {
 import GraphQLDate from 'graphql-date';
 
 export default new ObjectType({
-    name: 'About',
+    name: 'AboutType',
     fields: {
         _id: {
             type: ID,

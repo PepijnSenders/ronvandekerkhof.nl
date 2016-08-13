@@ -1,4 +1,3 @@
-import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import {
     APP_ID as clientID,
