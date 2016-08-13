@@ -8,7 +8,7 @@
     "start:watch": "concurrently 'npm run server:watch' 'npm run client:watch'",
     "server": "babel-node src/server/index.js",
     "server:watch": "nodemon -e 'js jsx' --ignore 'public/dist/**/*.js' --ignore 'src/client/**/*.js' --exec 'npm run start'",
-    "compile": "babel src --out-dir lib",
+    "compile": "npm install --only=dev && npm run client && babel src --out-dir lib && npm prune --production",
     "postinstall": "npm run compile",
     "eslint": "eslint src",
     "lint": "npm run eslint",
