@@ -1,4 +1,5 @@
-import React from 'react';
+import '<client/styles>';
+
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
