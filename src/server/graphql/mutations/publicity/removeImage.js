@@ -3,11 +3,10 @@ import {
     GraphQLBoolean as Boolean,
     GraphQLID as ID,
 } from 'graphql';
-import merge from 'lodash/merge';
 import mongoose from 'mongoose';
 
-import aboutInput from '<server/graphql>/types/input/aboutInput';
-import AboutModel from '<server/models>/About';
+import PublicityModel from '<server/models>/Publicity';
+import indexInput from '<server/graphql>/types/input/indexInput';
 
 export default {
     type: Boolean,
@@ -17,21 +16,23 @@ export default {
             type: new NonNull(ID),
         },
         data: {
-            name: 'data',
-            type: new NonNull(aboutInput),
+            name: 'index',
+            type: new NonNull(indexInput),
         },
     },
-    resolve(root, params) {
+    resolve(root, params, options) {
         return new Promise((resolve, reject) => {
-            AboutModel.findById(new mongoose.Types.ObjectId(params._id), (err, about) => { // eslint-disable-line no-underscore-dangle,max-len
+            PublicityModel.findById(new mongoose.Types.ObjectId(params._id), (err, publicity) => {
                 if (err) {
                     reject(err);
-                } else if (!about) {
+                } else if (!publicity) {
                     reject(new Error(`Object not found for: ${params._id}`));
                 } else {
-                    merge(about, params.data).save((saveErr) => {
-                        if (saveErr) {
-                            reject(saveErr);
+                    publicity.images.splice(params.data.index, 1);
+
+                    publicity.save((err) => {
+                        if (err) {
+                            reject(err);
                         } else {
                             resolve();
                         }

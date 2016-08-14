@@ -26,6 +26,8 @@ export default {
             DateModel.findById(new mongoose.Types.ObjectId(params._id), (err, date) => { // eslint-disable-line no-underscore-dangle,max-len
                 if (err) {
                     reject(err);
+                } else if (!date) {
+                    reject(new Error(`Object not found for: ${params._id}`));
                 } else {
                     merge(date, params.data).save((saveErr) => {
                         if (saveErr) {

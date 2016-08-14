@@ -4,12 +4,9 @@ import {
 } from 'graphql';
 
 export default new InputObjectType({
-    name: 'sizeInputType',
+    name: 'indexInput',
     fields: {
-        width: {
-            type: Int,
-        },
-        height: {
+        index: {
             type: Int,
         },
     },

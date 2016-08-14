@@ -26,6 +26,8 @@ export default {
             PortfolioModel.findById(new mongoose.Types.ObjectId(params._id), (err, portfolio) => { // eslint-disable-line no-underscore-dangle,max-len
                 if (err) {
                     reject(err);
+                } else if (!portfolio) {
+                    reject(new Error(`Object not found for: ${params._id}`));
                 } else {
                     merge(portfolio, params.data).save((saveErr) => {
                         if (saveErr) {

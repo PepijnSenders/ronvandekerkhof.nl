@@ -4,7 +4,7 @@ import {
     GraphQLList as List,
     GraphQLString as String,
 } from 'graphql';
-import imageInputType from '<server/graphql>/types/input/imageInputType';
+import imageInput from '<server/graphql>/types/input/imageInput';
 
 export default new InputObjectType({
     name: 'publicityInput',
@@ -13,7 +13,7 @@ export default new InputObjectType({
             type: ID,
         },
         images: {
-            type: new List(imageInputType),
+            type: new List(imageInput),
         },
         title: {
             type: String,

@@ -27,7 +27,7 @@ export default {
                 if (err) {
                     reject(err);
                 } else if (!publicity) {
-                    reject(`Object not found for: ${params._id}`);
+                    reject(new Error(`Object not found for: ${params._id}`));
                 } else {
                     publicity.title = params.data.title;
                     publicity.description = params.data.description;

@@ -92,8 +92,6 @@ export default function createPublicityAdminRoutes(app, schema, isLoggedIn) {
                 },
             })));
 
-            console.log(description);
-
             return graphql(schema, `
                 mutation publicityUpdate($id: ID!, $input: publicityInput!) {
                     updatePublicity(_id: $id, data: $input)
@@ -188,12 +186,14 @@ export default function createPublicityAdminRoutes(app, schema, isLoggedIn) {
 
     app.get('/admin/publicity/:id/image/:index', isLoggedIn, function(req, res) {
         graphql(schema, `
-            mutation removeImage($id: ID!, $index: INT!) {
-                removeImageFromPortfolio(_id: $id, index: $index)
+            mutation removeImage($id: ID!, $input: indexInput!) {
+                removePublicityImage(_id: $id, data: $input)
             }
         `, null, null, {
             id: req.params.id,
-            index: req.params.index,
+            input: {
+                index: req.params.index,
+            },
         }).then(function(result) {
             if (result.errors && result.errors.length) {
                 return Promise.reject(new Error(result.errors.join('\n')));
