@@ -2,3 +2,7 @@ html, body {
     background-color: #fff;
     font-family: nitti-light;
 }
+
+* {
+    box-sizing: border-box;
+}

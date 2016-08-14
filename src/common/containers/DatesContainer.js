@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { getDates } from '<common/actions>';
 import DateComponent from '<common/components>/DateComponent';
+import SubTitleComponent from '<common/components>/SubTitleComponent';
 
 class DatesContainer extends Component {
     static needs() {
@@ -17,9 +18,10 @@ class DatesContainer extends Component {
 
         return (
             <section>
-                <h2>Dates</h2>
                 {
-                    this.props.dates.map(date => <DateComponent key={date.get('_id')} date={date} />)
+                    this.props.dates.map(date =>
+                        <DateComponent key={date.get('_id')} date={date} />
+                    )
                 }
             </section>
         );

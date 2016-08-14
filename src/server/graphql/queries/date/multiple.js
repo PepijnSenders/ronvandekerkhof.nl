@@ -12,6 +12,7 @@ export default {
         return new Promise((resolve, reject) => {
             DateModel
                 .find()
+                .sort({ date: -1 })
                 .exec((err, data) => {
                     if (err) {
                         reject(err);
