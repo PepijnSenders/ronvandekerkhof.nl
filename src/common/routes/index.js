@@ -5,6 +5,7 @@ import AboutContainer from '<common/containers>/AboutContainer';
 import DatesContainer from '<common/containers>/DatesContainer';
 import PortfolioContainer from '<common/containers>/PortfolioContainer';
 import PublicityContainer from '<common/containers>/PublicityContainer';
+import PublicityItemContainer from '<common/containers>/PublicityItemContainer';
 
 export const ABOUT_PATH = '/about';
 export const DATES_PATH = '/dates';
@@ -20,6 +21,7 @@ export default function createRoutes() {
             <Route path={DATES_PATH} component={DatesContainer} />
             <Route path={PORTFOLIO_PATH} component={PortfolioContainer} />
             <Route path={PUBLICITY_PATH} component={PublicityContainer} />
+            <Route path={`${PUBLICITY_PATH}/:id`} component={PublicityItemContainer} />
         </Route>
     );
 }

@@ -12,10 +12,8 @@ export function getPublicities(params = {}, req) {
 
         dispatch(request('publicities'));
 
-        console.log('test');
-
         return graphqlFetch('FetchDates', `
-            query FetchDates {
+            query FetchPublicities {
                 publicities { _id title description link images {
                     size {
                         width height
@@ -23,18 +21,15 @@ export function getPublicities(params = {}, req) {
                 } }
             }
         `, null, req ? `${req.protocol}://${req.get('host')}` : '').then(result => {
-            console.log(result);
-            if (result.errors && result.errors.length) {
-                return Promise.reject(new Error(result.errors.join('\n')));
-            }
-
             return dispatch(response('publicities', {
                 data: result.data.data,
             }));
         }).catch(err => {
-            dispatch(failedRequest('publicities', err));
+            const sendErr = new Error(err.response.data.errors.join('\n'));
 
-            return Promise.reject(err);
+            dispatch(failedRequest('publicities', sendErr));
+
+            return Promise.reject(sendErr);
         });
     };
 }

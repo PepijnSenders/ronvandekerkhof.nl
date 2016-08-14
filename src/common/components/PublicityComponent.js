@@ -4,10 +4,12 @@ import moment from 'moment';
 import { StyleSheet, css } from 'aphrodite';
 import chroma from 'chroma-js';
 
+import { PUBLICITY_PATH } from '<common/routes>';
+
 function DateComponent({ publicity }) {
     return (
         <p className={css(styles.base)}>
-            <Link to="/publicity/{publicity.get('_id')}" className={css(styles.link)}>
+            <Link to={`${PUBLICITY_PATH}/${publicity.get('_id')}`} className={css(styles.link)}>
                 <span className={css(styles.publicity)}>
                     {moment(publicity.get('createdAt')).format('DD.MM.YY')}
                     <span className={css(styles.spacer)}>-</span>

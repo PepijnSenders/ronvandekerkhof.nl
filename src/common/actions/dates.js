@@ -17,17 +17,15 @@ export function getDates(params = {}, req) {
                 dates { _id name date link location updatedAt }
             }
         `, null, req ? `${req.protocol}://${req.get('host')}` : '').then(result => {
-            if (result.errors && result.errors.length) {
-                return Promise.reject(new Error(result.errors.join('\n')));
-            }
-
             return dispatch(response('dates', {
                 data: result.data.data,
             }));
         }).catch(err => {
-            dispatch(failedRequest('dates', err));
+            const sendErr = new Error(err.response.data.errors.join('\n'));
 
-            return Promise.reject(err);
+            dispatch(failedRequest('dates', sendErr));
+
+            return Promise.reject(sendErr);
         });
     };
 }
