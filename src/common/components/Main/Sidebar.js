@@ -11,7 +11,7 @@ import { StyleSheet, css } from 'aphrodite';
 
 class Sidebar extends Component {
     isActive(path) {
-        return window.location.pathname.match(path);
+        return window && window.location.pathname.match(path);
     }
 
     render() {
