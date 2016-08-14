@@ -16,7 +16,7 @@ export function getDates(params = {}, req) {
             query FetchDates {
                 dates { _id name date link location updatedAt }
             }
-        `, null, `${req.protocol}://${req.get('host')}`).then(result => {
+        `, null, req ? `${req.protocol}://${req.get('host')}` : '').then(result => {
             if (result.errors && result.errors.length) {
                 return Promise.reject(new Error(result.errors.join('\n')));
             }

@@ -19,7 +19,7 @@ class DatesContainer extends Component {
             <section>
                 <h2>Dates</h2>
                 {
-                    this.props.dates.map(date => <DateComponent date={date} />)
+                    this.props.dates.map(date => <DateComponent key={date.get('_id')} date={date} />)
                 }
             </section>
         );

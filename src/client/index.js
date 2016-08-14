@@ -12,6 +12,7 @@ import createRoutes from '<common/routes>';
 import { configureStore } from '<common/store>';
 import { renderFinished } from '<common/actions>';
 import { createHistory } from '<common/utilities>/history';
+import preRenderMiddleware from '<common/middlewares>/preRenderMiddleware';
 
 const initialState = fromJS(
     window.__INITIAL_STATE__ // eslint-disable-line no-underscore-dangle
@@ -31,17 +32,19 @@ syncHistoryWithStore(history, store, {
 
 store.dispatch(renderFinished());
 
-export function onUpdate() {
-    if (window.__INITIAL_STATE__ !== null) { // eslint-disable-line no-underscore-dangle,max-len
-        window.__INITIAL_STATE__ = null; // eslint-disable-line no-underscore-dangle,max-len
-
-        return;
-    }
-}
-
 render(
     <Provider store={store}>
-        <Router history={history} onUpdate={onUpdate}>
+        <Router history={history} onUpdate={function() {
+                if (window.__INITIAL_STATE__ !== null) { // eslint-disable-line no-underscore-dangle,max-len
+                    window.__INITIAL_STATE__ = null; // eslint-disable-line no-underscore-dangle,max-len
+
+                    return;
+                }
+
+                const { components, params } = this.state;
+
+                preRenderMiddleware(store.dispatch, components, params);
+            }}>
             {routes}
         </Router>
     </Provider>,
