@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
         top: 0,
         left: 0,
         zIndex: 99,
-        borderBottom: '8px solid black',
+        borderBottom: '4px solid black',
         paddingBottom: 84,
     },
     content: {

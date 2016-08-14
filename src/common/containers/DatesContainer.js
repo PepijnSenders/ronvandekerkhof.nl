@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { getDates } from '<common/actions>';
 import DateComponent from '<common/components>/DateComponent';
-import SubTitleComponent from '<common/components>/SubTitleComponent';
 
 class DatesContainer extends Component {
     static needs() {

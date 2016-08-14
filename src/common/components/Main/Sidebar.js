@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router';
+import { IS_CLIENT } from '<common/config>/app';
 import {
     ABOUT_PATH,
     DATES_PATH,
@@ -11,7 +12,7 @@ import { StyleSheet, css } from 'aphrodite';
 
 class Sidebar extends Component {
     isActive(path) {
-        return window && window.location.pathname.match(path);
+        return IS_CLIENT && window.location.pathname.match(path);
     }
 
     render() {

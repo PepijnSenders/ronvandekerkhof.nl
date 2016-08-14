@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { getPublicities } from '<common/actions>';
+import PublicityComponent from '<common/components>/PublicityComponent';
 
 class PublicityContainer extends Component {
     static needs() {
@@ -10,15 +11,15 @@ class PublicityContainer extends Component {
     }
 
     render() {
-        if (!this.props.dates || this.props.dates.size === 0) {
+        if (!this.props.publicities || this.props.publicities.size === 0) {
             return null;
         }
 
         return (
             <section>
                 {
-                    this.props.dates.map(date =>
-                        <PublicityComponent key={date.get('_id')} date={date} />
+                    this.props.publicities.map(publicity =>
+                        <PublicityComponent key={publicity.get('_id')} publicity={publicity} />
                     )
                 }
             </section>
@@ -26,10 +27,12 @@ class PublicityContainer extends Component {
     }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+    publicities: state.getIn(['publicities', 'data', 'publicities']),
+});
 const mapDispatchToProps = () => ({});
 
 export default
     connect(mapStateToProps, mapDispatchToProps)(
-        PortfolioContainer
+        PublicityContainer
     );
