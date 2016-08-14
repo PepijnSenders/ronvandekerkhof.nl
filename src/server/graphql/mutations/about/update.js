@@ -4,6 +4,7 @@ import {
     GraphQLID as ID,
 } from 'graphql';
 import merge from 'lodash/merge';
+import mongoose from 'mongoose';
 
 import aboutInput from '<server/graphql>/types/input/aboutInput';
 import AboutModel from '<server/models>/About';
@@ -22,7 +23,7 @@ export default {
     },
     resolve(root, params) {
         return new Promise((resolve, reject) => {
-            AboutModel.findById(params._id, (err, about) => { // eslint-disable-line no-underscore-dangle,max-len
+            AboutModel.findById(new mongoose.Types.ObjectId(params._id), (err, about) => { // eslint-disable-line no-underscore-dangle,max-len
                 if (err) {
                     reject(err);
                 } else {

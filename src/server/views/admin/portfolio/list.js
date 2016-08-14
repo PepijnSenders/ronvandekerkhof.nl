@@ -29,8 +29,7 @@ export function list(options) {
                         </td>
                         <td>
                             <a class="btn" href="/admin/portfolio/edit/${record._id}">Edit</a>
-                            <form action="/admin/portfolio/${record._id}" method="POST">
-                                <input type="hidden" name="_method" value="delete">
+                            <form action="/admin/portfolio/${record._id}?_method=DELETE" method="POST">
                                 <button class="btn" type="submit">Delete</button>
                             </form>
                         </td>

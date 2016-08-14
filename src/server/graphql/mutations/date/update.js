@@ -4,6 +4,7 @@ import {
     GraphQLID as ID,
 } from 'graphql';
 import merge from 'lodash/merge';
+import mongoose from 'mongoose';
 
 import dateInput from '<server/graphql>/types/input/dateInput';
 import DateModel from '<server/models>/Date';
@@ -22,7 +23,7 @@ export default {
     },
     resolve(root, params) {
         return new Promise((resolve, reject) => {
-            DateModel.findById(params._id, (err, date) => { // eslint-disable-line no-underscore-dangle,max-len
+            DateModel.findById(new mongoose.Types.ObjectId(params._id), (err, date) => { // eslint-disable-line no-underscore-dangle,max-len
                 if (err) {
                     reject(err);
                 } else {

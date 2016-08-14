@@ -3,6 +3,7 @@ import {
     GraphQLBoolean as Boolean,
     GraphQLID as ID,
 } from 'graphql';
+import mongoose from 'mongoose';
 
 import DateModel from '<server/models>/Date';
 
@@ -16,7 +17,7 @@ export default {
     },
     resolve(root, params) {
         return new Promise((resolve, reject) => {
-            DateModel.findByIdAndRemove(params._id) // eslint-disable-line no-underscore-dangle,max-len
+            DateModel.findByIdAndRemove(new mongoose.Types.ObjectId(params._id)) // eslint-disable-line no-underscore-dangle,max-len
             .exec((err) => {
                 if (err) {
                     reject(err);

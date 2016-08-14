@@ -3,6 +3,7 @@ import {
     GraphQLBoolean as Boolean,
     GraphQLID as ID,
 } from 'graphql';
+import mongoose from 'mongoose';
 
 import PublicityModel from '<server/models>/Publicity';
 
@@ -16,7 +17,7 @@ export default {
     },
     resolve(root, params, options) {
         return new Promise((resolve, reject) => {
-            PublicityModel.findByIdAndRemove(params._id) // eslint-disable-line no-underscore-dangle,max-len
+            PublicityModel.findByIdAndRemove(new mongoose.Types.ObjectId(params._id)) // eslint-disable-line no-underscore-dangle,max-len
             .exec((err) => {
                 if (err) {
                     reject(err);

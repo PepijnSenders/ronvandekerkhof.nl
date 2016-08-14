@@ -4,9 +4,10 @@ import {
     GraphQLID as ID,
 } from 'graphql';
 import merge from 'lodash/merge';
+import mongoose from 'mongoose';
 
 import publicityInput from '<server/graphql>/types/input/publicityInput';
-import PortfolioModel from '<server/models>/Portfolio';
+import PublicityModel from '<server/models>/Publicity';
 
 export default {
     type: Boolean,
@@ -22,11 +23,18 @@ export default {
     },
     resolve(root, params) {
         return new Promise((resolve, reject) => {
-            PortfolioModel.findById(params._id, (err, publicity) => { // eslint-disable-line no-underscore-dangle,max-len
+            PublicityModel.findById(new mongoose.Types.ObjectId(params._id), (err, publicity) => { // eslint-disable-line no-underscore-dangle,max-len
                 if (err) {
                     reject(err);
+                } else if (!publicity) {
+                    reject(`Object not found for: ${params._id}`);
                 } else {
-                    merge(publicity, params.data).save((saveErr) => {
+                    publicity.title = params.data.title;
+                    publicity.description = params.data.description;
+                    publicity.link = params.data.link;
+                    publicity.images = (publicity.images || []).concat((params.data.images || []));
+
+                    publicity.save((saveErr) => {
                         if (saveErr) {
                             reject(saveErr);
                         } else {

@@ -4,6 +4,7 @@ import {
     GraphQLID as ID,
 } from 'graphql';
 import merge from 'lodash/merge';
+import mongoose from 'mongoose';
 
 import portfolioInput from '<server/graphql>/types/input/portfolioInput';
 import PortfolioModel from '<server/models>/Portfolio';
@@ -22,7 +23,7 @@ export default {
     },
     resolve(root, params) {
         return new Promise((resolve, reject) => {
-            PortfolioModel.findById(params._id, (err, portfolio) => { // eslint-disable-line no-underscore-dangle,max-len
+            PortfolioModel.findById(new mongoose.Types.ObjectId(params._id), (err, portfolio) => { // eslint-disable-line no-underscore-dangle,max-len
                 if (err) {
                     reject(err);
                 } else {

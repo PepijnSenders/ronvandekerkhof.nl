@@ -19,10 +19,10 @@ export function layout(content) {
                         <div class="navbar-header">
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="/admin/dates">Dates</a></li>
-                                    <li><a href="/admin/abouts">About</a></li>
-                                    <li><a href="/admin/portfolios">Portfolio</a></li>
-                                    <li><a href="/admin/publicities">Publicity</a></li>
+                                    <li><a href="/admin/date">Dates</a></li>
+                                    <li><a href="/admin/about">About</a></li>
+                                    <li><a href="/admin/portfolio">Portfolio</a></li>
+                                    <li><a href="/admin/publicity">Publicity</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -1,3 +1,10 @@
+import dotenv from 'dotenv';
+
+dotenv.config({
+    path: `${process.cwd()}/.env`,
+    silent: true,
+});
+
 import passport from 'passport';
 import express from 'express';
 import { PORT } from '<server/config>/app';

@@ -1,6 +1,9 @@
+import fill from 'lodash/fill';
+
 export function create(options = {}) {
+
     return html`
-        <form method="${options.data ? 'PUT' : 'POST'}" action="/admin/portfolio/${options.data ? options.data._id : ''}">
+        <form method="POST" action="/admin/portfolio/${options.data ? options.data._id : ''}">
             <legend>
                 <h1>Create Portfolio</h1>
             </legend>

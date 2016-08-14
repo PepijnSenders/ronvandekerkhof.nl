@@ -1,6 +1,6 @@
 export function create(options = {}) {
     return html`
-        <form method="${options.data ? 'PUT' : 'POST'}" action="/admin/about/${options.data ? options.data._id : ''}">
+        <form method="POST" action="/admin/about/${options.data ? options.data._id : ''}">
             <legend>
                 <h1>Create About</h1>
             </legend>
