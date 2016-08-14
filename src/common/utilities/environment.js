@@ -5,5 +5,5 @@ export function isDebug() {
 }
 
 export function isProduction() {
-    return ENV === 'prod';
+    return ENV === 'production';
 }

@@ -58,6 +58,7 @@ module.exports = {
                 NODE_ENV: `"${process.env.NODE_ENV}"`,
             },
         }),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     ].concat(!isDebug ? [
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false,
