@@ -21,7 +21,7 @@ export default function createAuthRoutes(app, passport) {
                     return next(err);
                 }
 
-                return res.redirect('/admin');
+                return res.redirect(req.session.redirectTo ? req.session.redirectTo : '/admin');
             });
         })(req, res, next);
     });

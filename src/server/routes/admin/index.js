@@ -23,6 +23,8 @@ export default function createAdminRoutes(app, passport, schema) {
             return next();
         }
 
-        res.redirect('/auth/login');
+        req.session.redirectTo = req.originalUrl;
+
+        res.redirect(`/auth/login`);
     }
 }
