@@ -16,8 +16,7 @@ export default function index({ title, css, html, header, initialState }) {
                         ${keys(link.props).map(key => `${key}="${link.props[key]}"`).join(' ')}
                     >
                 `).join('\n')}
-                <link>
-                <style data-aphrodite>${css.content}</style>
+                <style type="text/css" data-aphrodite>${css.content}</style>
             </head>
             <body>
                 <div id="app">${html}</div>

@@ -1,7 +1,8 @@
 export default {
     title: 'Ron van de Kerkhof',
     link: [
-        { rel: 'stylesheet', href: '/fonts/nitti-light/stylesheet.css' },
+        { rel: 'stylesheet', href: '/css/base.css' },
+        { rel: 'stylesheet', href: '/css/nitti-light.css' },
     ],
     meta: [
         { charset: 'utf-8' },
